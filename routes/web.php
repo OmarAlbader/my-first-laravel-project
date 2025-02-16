@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->get();   // Eager loading, to prevent lazy loading and alleviate N+1 query problem. (see https://laravel.com/docs/8.x/eloquent-relationships#eager-loading)
+    $jobs = Job::with('employer')->simplePaginate(3);   // Eager loading, to prevent lazy loading and alleviate N+1 query problem. (see https://laravel.com/docs/8.x/eloquent-relationships#eager-loading)
 
     return view('jobs', [
         'jobs' => $jobs
