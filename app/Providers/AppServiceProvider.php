@@ -21,9 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // This line below prevents lazy loading and will throw an error if you try to use it, you need to use the with() method to load the relationship (eager loading)
-        Model::preventLazyLoading();
+        Model::preventLazyLoading(); //* This line below prevents lazy loading and will throw an error if you try to use it, you need to use the with() method to load the relationship (eager loading)
 
-        // Paginator::useBootstrapFive();
+        // Paginator::useBootstrapFive(); //* This line is used to change the default pagination style to Bootstrap 5.
+        // Model::unguard(); //* This line is used to disable mass assignment protection.
     }
 }
