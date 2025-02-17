@@ -7,6 +7,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+// Index
 Route::get('/jobs', function () {
     $jobs = Job::with('employer')->latest()->simplePaginate(3);   // Eager loading, to prevent lazy loading and alleviate N+1 query problem. (see https://laravel.com/docs/8.x/eloquent-relationships#eager-loading)
 
@@ -15,16 +16,19 @@ Route::get('/jobs', function () {
     ]);
 });
 
+// Create
 Route::get('/jobs/create', function () {
     return view('jobs.create');
 });
 
+// Show
 Route::get('/jobs/{id}', function ($id) {
     $job = Job::find($id);
 
     return view('jobs.show', ['job' => $job]);
 });
 
+// Store
 Route::post('/jobs', function () {
     request()->validate([
         'title' => ['required', 'min: 3'],
@@ -37,6 +41,43 @@ Route::post('/jobs', function () {
         'employer_id' => 1,
     ]);
 
+    return redirect('/jobs');
+});
+
+// Edit
+Route::get('/jobs/{id}/edit', function ($id) {
+    $job = Job::find($id);
+
+    return view('jobs.edit', ['job' => $job]);
+});
+
+// Update
+Route::patch('/jobs/{id}', function ($id) {
+    request()->validate([
+        'title' => ['required', 'min: 3'],
+        'salary' => ['required'],
+    ]);
+
+    // authorize (On hold...)
+
+    $job = Job::findOrFail($id);
+
+    $job->update([
+        'title' => request('title'),
+        'salary' => request('salary'),
+    ]);
+
+    return redirect('/jobs/' . $job->id);
+});
+
+// Destroy
+Route::delete('/jobs/{id}', function ($id) {
+    // authorize (On hold...)
+
+    // delete the job
+    Job::findOrFail($id)->delete();
+
+    // redirect
     return redirect('/jobs');
 });
 
