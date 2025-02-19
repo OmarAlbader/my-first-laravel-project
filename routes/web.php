@@ -6,9 +6,7 @@ use App\Http\Controllers\SessionController;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+
 
 Route::view('/', 'home'); // shorthand of about route (used for static pages where only view is returned)
 Route::view('/contact', 'contact');
