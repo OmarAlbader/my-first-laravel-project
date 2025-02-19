@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -44,12 +47,19 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
+        // if (Auth::user()->cannot('edit-job', $job)) {
+        //     dd('failure');
+        // }
+
+        // Gate::authorize('edit-job', $job);
+
         return view('jobs.edit', ['job' => $job]);
     }
 
     public function update(Job $job)
     {
         // authorize (On hold...)
+        // Gate::authorize('edit-job', $job);
 
         request()->validate([
             'title' => ['required', 'min: 3'],
@@ -67,6 +77,7 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         // authorize (On hold...)
+        // Gate::authorize('edit-job', $job);
 
         // delete the job
         $job->delete();
