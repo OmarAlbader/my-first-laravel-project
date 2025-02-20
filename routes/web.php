@@ -7,12 +7,12 @@ use App\Jobs\TranslateJob;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
-Route::get("test", function () {
-    $job = Job::first();
-    TranslateJob::dispatch($job);
+// Route::get("test", function () {
+//     $job = Job::first();
+//     TranslateJob::dispatch($job);
 
-    return 'Done';
-});
+//     return 'Done';
+// });
 
 Route::view('/', 'home'); // shorthand of about route (used for static pages where only view is returned)
 Route::view('/contact', 'contact');
